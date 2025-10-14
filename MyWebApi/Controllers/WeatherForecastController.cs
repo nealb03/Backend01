@@ -22,6 +22,7 @@ namespace MyWebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            // Fetches all weather forecast records from DB
             return await _context.WeatherForecasts.ToListAsync();
         }
 
@@ -47,6 +48,7 @@ namespace MyWebApi.Controllers
             _context.WeatherForecasts.Add(forecast);
             await _context.SaveChangesAsync();
 
+            // Returns 201 Created with location header for new resource
             return CreatedAtAction(nameof(GetById), new { id = forecast.Id }, forecast);
         }
 
@@ -68,6 +70,7 @@ namespace MyWebApi.Controllers
             _context.Entry(existing).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
+            // 204 No Content indicates update success
             return NoContent();
         }
 
