@@ -3,6 +3,7 @@ using MyWebApi.Models;
 
 namespace MyWebApi.Data
 {
+<<<<<<< HEAD
     /// <summary>
     /// Legacy compatibility context kept only to satisfy any remaining
     /// service registrations that reference AppDbContext.  
@@ -114,3 +115,16 @@ namespace MyWebApi.Data
         }
     }
 }
+=======
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options) { }
+
+        public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+    }
+}
+>>>>>>> 36c0305 (Save local changes before switching branch)
