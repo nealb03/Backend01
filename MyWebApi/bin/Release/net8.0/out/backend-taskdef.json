@@ -1,0 +1,55 @@
+{
+  "family": "brentaneal-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::288761763536:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::288761763536:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "backend-container",
+      "image": "288761763536.dkr.ecr.us-east-1.amazonaws.com/brentaneal-backend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "ASPNETCORE_URLS",
+          "value": "http://0.0.0.0:80"
+        },
+        {
+          "name": "ASPNETCORE_ENVIRONMENT",
+          "value": "Production"
+        },
+        {
+          "name": "DOTNET_PRINT_TELEMETRY_MESSAGE",
+          "value": "false"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:80/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 10
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/brentaneal-backend",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "backend"
+        }
+      }
+    }
+  ]
+}
