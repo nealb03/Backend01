@@ -1,0 +1,19 @@
+{
+  "family": "allcloudsvcs-backend",
+  "executionRoleArn": "arn:aws:iam::288761763536:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::288761763536:role/ecsTaskRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "backend-container",
+      "image": "288761763536.dkr.ecr.us-east-1.amazonaws.com/allcloudsvcs-backend:latest",
+      "essential": true,
+      "portMappings": [
+        { "containerPort": 80, "protocol": "tcp" }
+      ]
+    }
+  ]
+}
